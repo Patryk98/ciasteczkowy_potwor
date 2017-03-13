@@ -1,13 +1,24 @@
 <?php
-  if (isset($_COOKIE["liczba"]))
+  if (isset($_COOKIE["zalogowany"]))
   {
-    $liczba = $_COOKIE["liczba"]+1;
+    $zalogowany = $_COOKIE["zalogowany"];
   }
   else
   {
-    $liczba = 1;
+    $zalogowany = "nie";
+    setcookie("zalogowany", $zalogowany, time()+60*60*24);
   }
-  setcookie("liczba", $liczba, time()+10);
+
+  if(isset($_COOKIE["login"]))
+  {
+    $login = $_COOKIE["login"];
+  }
+  else
+  {
+    $login = "anonim";
+    setcookie("login", $login, time() +60*60*24);
+  }
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -16,7 +27,15 @@
 </head>
 <body>
   <?php
-    echo ($liczba);
+    if ($zalogowany == "tak")
+    {
+        echo "Welcome in Matrix ".$login;
+    }
+    else
+    {
+    echo "<a href='logowanie.php'>Zaloguj się</a>";
+    }
+
   ?>
 </body>
 </html>
